@@ -3,6 +3,7 @@ package com.sch.igor;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.*;
 
 public class Group implements Draft {
     private Student[] group = new Student[10];
@@ -139,6 +140,111 @@ public class Group implements Draft {
             System.out.println("Вы ввели неверное значение! Попробуйте ещё раз!");
         } catch (ExceededAmountException ex) {
             System.out.println("В группе не может быть больше 10-ти человек");
+        }
+    }
+    //Сохраняем группу в файл
+    public void addToFile(File file) {
+         try (PrintWriter writer=new PrintWriter(file)) {
+            for(int k=0; k<group.length;k++) {
+                if (group[k]!=null) {
+                    writer.println(group[k].toString());
+                   // stud=stud.replaceAll("\\]","").replaceAll("\\[","").replaceAll(",","");
+                   // System.out.println(group[k].toString());
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error");
+        }
+    }
+
+    /*Загружаем группу из файла
+    Считываем все строки, разбиваем её на массив char и идем по массиву, отбирая все значение.
+    Понимаю что можно было решить задачу намного проще (через регулярки), но решил помозговать и написать такой себе парсер
+    */
+    public void loadWithFile(File file) {
+        String sName = new String();
+        String sAge = new String();
+        String sSex = new String();
+        String sNumCertificate = new String();
+        String sAverageScore = new String();
+        StringBuffer  result = new StringBuffer ();
+        int next=0;
+
+        try (BufferedReader out = new BufferedReader(new
+                FileReader(file))) {
+            String str;
+            while ((str = out.readLine()) != null) {
+                result.append(str);
+            }
+            char[] res = new char[result.length()];
+            result.getChars(0, result.length(), res, 0);
+
+            for (int k = 0; k < res.length; k++) {
+                String s = Character.toString(res[k]);
+                if (s.equals(";")) {
+
+                    if (next == 0) {
+                        next++;
+                    }
+                    else if (next == 1) {
+                        next++;
+                    }
+                    else if (next == 2) {
+                        next++;
+                    }
+                    else if (next == 3) {
+                        next++;
+                    }
+                    else if (next == 4) {
+                        next++;
+                    }
+                    if (next == 5) {
+                        next = 0;
+                        String name = sName.toString();
+                        Sex sex;
+                        //Тут не знал как сделать с Enum, поэтому придумал костыль
+                        if (sSex.toString().equals("M")) {
+                            sex = Sex.MALE;
+                        } else {
+                            sex = Sex.FEMALE;
+                        }
+                        int age = Integer.parseInt(sAge.toString());
+                        int numCertificate = Integer.parseInt(sNumCertificate.toString());
+                        double averageScore = Double.parseDouble(sAverageScore.toString());
+
+                        Student student = new Student(name, sex, age, numCertificate, averageScore);
+                        addStudent(student);
+                        sName = "";
+                        sAge =  "";
+                        sSex =  "";
+                        sNumCertificate =  "";
+                        sAverageScore =  "";
+
+                    }
+                } else {
+                    if (next == 0) {
+                        sName+=""+res[k];
+                    }
+                    if (next == 1) {
+                        sAge+=""+res[k];
+                    }
+                    if (next == 2) {
+                        sSex+=""+res[k];
+                    }
+                    if (next == 3) {
+                        sNumCertificate+=""+res[k];
+                    }
+                    if (next == 4) {
+                        sAverageScore+=""+res[k];
+                    }
+                    if (next == 5) {
+                        next = 0;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR " + e);
         }
     }
 }

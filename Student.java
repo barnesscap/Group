@@ -33,7 +33,7 @@ public class Student extends  Human {
 
     @Override
     public String toString() {
-        return "Name - " +this.getName() + "; Age - " +this.getAge()+ "; Average score - " + this.getAverageScore() +"\n";
+        return "Name - " +this.getName() + "; Age - " +this.getAge()+ "; Average score - " + this.getAverageScore() +";\n";
     }
 }
 

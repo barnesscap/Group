@@ -2,11 +2,14 @@ package com.sch.igor;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        // ManualInput();
+        //ManualInput();
         AutoInput();
+
+
     }
 
     public static void ManualInput() {
@@ -60,6 +63,9 @@ public class Main {
          (только те, кто 18+, имеют средний бал ниже 3.5 и мужчины) */
         System.out.println();
         System.out.println("Список призывников:" + "\n" + Arrays.toString(groupOne.draftStudents()));
+
+        File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt") ;
+        groupOne.addToFile(file);
     }
 
     public static void AutoInput() {
@@ -73,6 +79,8 @@ public class Main {
             System.out.println(" sort - сортировать список по параметрам");
             System.out.println(" print - напечатать список студентов");
             System.out.println(" printA - напечатать список призывников");
+            System.out.println(" save - сохранить группу студентов в файл");
+            System.out.println(" load - загрузить группу студентов из файла");
             System.out.println(" stop - завершить выполнение программы");
 
             String value = sc.nextLine();
@@ -105,12 +113,31 @@ public class Main {
             if (value.equals("printA")) {
                 System.out.println("Список призывников:" + "\n" + Arrays.toString(groupOne.draftStudents()));
             }
+            if (value.equals("search")) {
+                System.out.println(" Введите номер аттестата: ");
+                int valueSearch = sc.nextInt();
+                System.out.println();
+                System.out.println("Найденный студент - " + groupOne.searchStudent(valueSearch));
+            }
+            if (value.equals("save")) {
+                File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt") ;
+                groupOne.addToFile(file);
+                System.out.println("Файл сохранен в - D:\\HomeWorkOOP\\IO0_003\\Group.txt");
+            }
+            if (value.equals("load")) {
+                System.out.println("Загрузите данные в файл - D:\\HomeWorkOOP\\IO0_003\\GroupAdd.txt и введите ok");
+                System.out.println("В формате (обратите внимания на знаки): имя;возраст;пол;номер_аттестата;средний балл;");
+                value = sc.nextLine();
+                if (value.equals("ok")) {
+                    File file = new File("D:\\HomeWorkOOP\\IO0_003\\GroupAdd.txt");
+                    groupOne.loadWithFile(file);
+                    System.out.println("Список студентов загружен!");
+                }
+            }
             if (value.equals("stop")) {
                 System.out.println("Программа выполнена успешно");
                 break;
-            } else {
-                System.out.println("Вы ввели неверную команду! Попробуйте ещё раз!");
-                System.out.println();
+
             }
         }
     }
