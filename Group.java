@@ -148,8 +148,6 @@ public class Group implements Draft {
             for(int k=0; k<group.length;k++) {
                 if (group[k]!=null) {
                     writer.println(group[k].toString());
-                   // stud=stud.replaceAll("\\]","").replaceAll("\\[","").replaceAll(",","");
-                   // System.out.println(group[k].toString());
                 }
             }
         }
