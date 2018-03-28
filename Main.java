@@ -65,7 +65,8 @@ public class Main {
         System.out.println("Список призывников:" + "\n" + Arrays.toString(groupOne.draftStudents()));
 
         File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt") ;
-        groupOne.addToFile(file);
+        SaveLoader saveLoader = new SaveLoader();
+        saveLoader.addToFile(file,groupOne.getGroup());
     }
 
     public static void AutoInput() {
@@ -121,7 +122,8 @@ public class Main {
             }
             if (value.equals("save")) {
                 File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt") ;
-                groupOne.addToFile(file);
+                SaveLoader saveLoader = new SaveLoader();
+                saveLoader.addToFile(file,groupOne.getGroup());
                 System.out.println("Файл сохранен в - D:\\HomeWorkOOP\\IO0_003\\Group.txt");
             }
             if (value.equals("load")) {
@@ -130,7 +132,8 @@ public class Main {
                 value = sc.nextLine();
                 if (value.equals("ok")) {
                     File file = new File("D:\\HomeWorkOOP\\IO0_003\\GroupAdd.txt");
-                    groupOne.loadWithFile(file);
+                    SaveLoader saveLoader = new SaveLoader();
+                    saveLoader.loadWithFile(file, groupOne);
                     System.out.println("Список студентов загружен!");
                 }
             }
@@ -141,4 +144,6 @@ public class Main {
             }
         }
     }
+
+
 }
