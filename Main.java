@@ -6,8 +6,8 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        //ManualInput();
-        AutoInput();
+         ManualInput();
+//         AutoInput();
 
 
     }
@@ -64,9 +64,18 @@ public class Main {
         System.out.println();
         System.out.println("Список призывников:" + "\n" + Arrays.toString(groupOne.draftStudents()));
 
-        File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt") ;
+        File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt");
         SaveLoader saveLoader = new SaveLoader();
-        saveLoader.addToFile(file,groupOne.getGroup());
+        saveLoader.addToFile(file, groupOne.getGroup());
+
+        saveLoader.serializableGroup(groupOne);
+        System.out.println("Сериализация завершена");
+
+        groupOne = null;
+        groupOne= saveLoader.deserializableGroup(groupOne);
+        System.out.println("Десериализация завершена");
+        System.out.println(groupOne.toString());
+
     }
 
     public static void AutoInput() {
@@ -83,6 +92,8 @@ public class Main {
             System.out.println(" save - сохранить группу студентов в файл");
             System.out.println(" load - загрузить группу студентов из файла");
             System.out.println(" stop - завершить выполнение программы");
+            System.out.println(" ser - сериализация группы");
+            System.out.println(" deser - десериализация группы");
 
             String value = sc.nextLine();
             if (value.equals("add")) {
@@ -121,9 +132,9 @@ public class Main {
                 System.out.println("Найденный студент - " + groupOne.searchStudent(valueSearch));
             }
             if (value.equals("save")) {
-                File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt") ;
+                File file = new File("D:\\HomeWorkOOP\\IO0_003\\Group.txt");
                 SaveLoader saveLoader = new SaveLoader();
-                saveLoader.addToFile(file,groupOne.getGroup());
+                saveLoader.addToFile(file, groupOne.getGroup());
                 System.out.println("Файл сохранен в - D:\\HomeWorkOOP\\IO0_003\\Group.txt");
             }
             if (value.equals("load")) {
@@ -142,8 +153,22 @@ public class Main {
                 break;
 
             }
+            if (value.equals("ser")) {
+                SaveLoader saveLoader = new SaveLoader();
+                saveLoader.serializableGroup(groupOne);
+                System.out.println("Сериализация завершена");
+            }
+            if (value.equals("deser")) {
+                System.out.println("Загрузите данные в файл - D:\\HomeWorkOOP\\Seriazable\\Group.dtb и введите ok");
+                value = sc.nextLine();
+                if (value.equals("ok")) {
+                    SaveLoader saveLoader = new SaveLoader();
+                    groupOne= saveLoader.deserializableGroup(groupOne);
+                    System.out.println("Десериализация завершена");
+                }
+            }
         }
     }
-
-
 }
+
+

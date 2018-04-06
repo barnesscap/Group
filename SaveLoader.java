@@ -169,7 +169,32 @@ public class SaveLoader {
             sAverageScore += "" + res[k];
         }
     }
+
+
+    public void serializableGroup(Group group) {
+
+    try(ObjectOutputStream OOS=new ObjectOutputStream(new FileOutputStream("D:\\HomeWorkOOP\\serializable\\Group.dtb"))) {
+        OOS.writeObject(group);
+
+
+    } catch (IOException e) {
+        System.out.println("Ошибка сериализации");
+    }
+    }
+
+    public Group deserializableGroup(Group group) {
+        try (ObjectInputStream OIS=new ObjectInputStream(new FileInputStream("D:\\HomeWorkOOP\\serializable\\Group.dtb"))){
+            group=(Group)OIS.readObject();
+        }
+        catch(IOException |ClassNotFoundException e){
+            System.out.println("Ошибка десериализации");
+
+        }
+        System.out.println(group.toString());
+        return group;
+    }
 }
+
 
 
 

@@ -1,6 +1,9 @@
 package com.sch.igor;
 
-public class Student extends  Human {
+import java.io.Serializable;
+
+public class Student extends  Human implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int numCertificate;
     private double averageScore;
 
