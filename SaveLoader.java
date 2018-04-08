@@ -83,28 +83,8 @@ public class SaveLoader {
             }
             char[] res = new char[result.length()];
             result.getChars(0, result.length(), res, 0);
+            parser(res,group);
 
-            int next = 0;
-            for (int k = 0; k < res.length; k++) {
-                String s = Character.toString(res[k]);
-                if (s.equals(";")) {
-                    if (next >= 0 && next <= 4) {
-                        next++;
-                    }
-                    if (next == 5) {
-                        next = 0;
-                        transferStudent(group);
-                        getNullStr();
-                    }
-                } else {
-                    if (next >= 0 && next <= 4) {
-                        getValueStr(next, k, res);
-                    }
-                    if (next == 5) {
-                        next = 0;
-                    }
-                }
-            }
         } catch (IOException e) {
             System.out.println("ERROR " + e);
         }
@@ -142,6 +122,30 @@ public class SaveLoader {
         group.addStudent(student);
     }
 
+    //Парсер
+    private void parser(char[] res, Group group) {
+        int next = 0;
+        for (int k = 0; k < res.length; k++) {
+            String s = Character.toString(res[k]);
+            if (s.equals(";")) {
+                if (next >= 0 && next <= 4) {
+                    next++;
+                }
+                if (next == 5) {
+                    next = 0;
+                    transferStudent(group);
+                    getNullStr();
+                }
+            } else {
+                if (next >= 0 && next <= 4) {
+                    getValueStr(next, k, res);
+                }
+                if (next == 5) {
+                    next = 0;
+                }
+            }
+        }
+    }
     //Задаем переменным пустые значения
     private void getNullStr() {
         sName = "";
