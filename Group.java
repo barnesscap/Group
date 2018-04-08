@@ -1,6 +1,10 @@
 package com.sch.igor;
 
         import java.io.Serializable;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 53d29cbd820881d335e2bd2f22a93678b814aaee
         import java.util.Arrays;
         import java.util.InputMismatchException;
         import java.util.Scanner;
